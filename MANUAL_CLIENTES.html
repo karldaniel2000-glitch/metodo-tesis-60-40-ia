@@ -1,0 +1,1418 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manual del Cliente — Método Tesis 60-40 IA™</title>
+<style>
+  /* ── TIPOGRAFÍA Y BASE ─────────────────────────────── */
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap');
+
+  :root {
+    --ivory:    #FAFAF7;
+    --clay:     #C4622D;
+    --clay-dark:#9E4D22;
+    --clay-light:#E8A080;
+    --charcoal: #2C2C2C;
+    --slate:    #5A5A6A;
+    --stone:    #E8E6E0;
+    --white:    #FFFFFF;
+    --gold:     #B8860B;
+    --success:  #2D7A4F;
+    --warning:  #B8690B;
+    --danger:   #9E2A2A;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--ivory);
+    color: var(--charcoal);
+    line-height: 1.7;
+    font-size: 16px;
+  }
+
+  /* ── PORTADA ───────────────────────────────────────── */
+  .cover {
+    min-height: 100vh;
+    background: linear-gradient(160deg, var(--charcoal) 0%, #1a1a2e 60%, #16213e 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(ellipse at center, rgba(196,98,45,0.15) 0%, transparent 70%);
+    animation: pulse 8s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.6; }
+    50% { transform: scale(1.1); opacity: 1; }
+  }
+
+  .cover-badge {
+    background: var(--clay);
+    color: white;
+    padding: 6px 20px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cover-logo {
+    font-size: 80px;
+    margin-bottom: 24px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cover h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 6vw, 64px);
+    font-weight: 900;
+    color: var(--white);
+    line-height: 1.15;
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cover h1 span {
+    color: var(--clay);
+  }
+
+  .cover-subtitle {
+    font-size: 18px;
+    color: rgba(255,255,255,0.65);
+    max-width: 520px;
+    margin: 0 auto 48px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cover-divider {
+    width: 80px;
+    height: 3px;
+    background: var(--clay);
+    margin: 0 auto 48px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cover-meta {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cover-meta-item {
+    text-align: center;
+  }
+
+  .cover-meta-label {
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 4px;
+  }
+
+  .cover-meta-value {
+    font-size: 15px;
+    color: rgba(255,255,255,0.85);
+    font-weight: 500;
+  }
+
+  /* ── NAVEGACIÓN / ÍNDICE ───────────────────────────── */
+  .toc {
+    background: var(--white);
+    padding: 80px 60px;
+    max-width: 900px;
+    margin: 0 auto;
+    page-break-after: always;
+  }
+
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--clay);
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+
+  .toc h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--charcoal);
+    margin-bottom: 48px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid var(--stone);
+  }
+
+  .toc-list {
+    list-style: none;
+  }
+
+  .toc-list li {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px dotted var(--stone);
+  }
+
+  .toc-num {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--clay);
+    min-width: 32px;
+  }
+
+  .toc-title {
+    flex: 1;
+    font-size: 16px;
+    color: var(--charcoal);
+  }
+
+  .toc-page {
+    font-size: 13px;
+    color: var(--slate);
+  }
+
+  /* ── CONTENIDO PRINCIPAL ───────────────────────────── */
+  .content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  /* ── SECCIONES ─────────────────────────────────────── */
+  .chapter {
+    padding: 80px 0 60px;
+    border-bottom: 1px solid var(--stone);
+  }
+
+  .chapter:last-child {
+    border-bottom: none;
+  }
+
+  .chapter-header {
+    margin-bottom: 48px;
+  }
+
+  .chapter h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--charcoal);
+    margin-bottom: 16px;
+    line-height: 1.3;
+  }
+
+  .chapter h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--charcoal);
+    margin: 40px 0 16px;
+  }
+
+  .chapter h4 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--clay);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 28px 0 12px;
+  }
+
+  .chapter p {
+    color: var(--slate);
+    margin-bottom: 20px;
+    font-size: 15.5px;
+  }
+
+  /* ── COMPONENTES ───────────────────────────────────── */
+
+  /* Bloque de principio */
+  .principle-block {
+    background: linear-gradient(135deg, var(--charcoal), #1a1a2e);
+    color: white;
+    border-radius: 12px;
+    padding: 36px;
+    margin: 32px 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .principle-block::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(196,98,45,0.2) 0%, transparent 70%);
+  }
+
+  .principle-block .big-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 72px;
+    font-weight: 900;
+    color: var(--clay);
+    line-height: 1;
+    opacity: 0.3;
+    position: absolute;
+    top: 16px;
+    right: 36px;
+  }
+
+  .principle-title {
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--clay-light);
+    margin-bottom: 8px;
+  }
+
+  .principle-text {
+    font-size: 22px;
+    font-weight: 300;
+    color: white;
+    line-height: 1.5;
+    max-width: 80%;
+  }
+
+  /* Tabla de contenidos */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0;
+    font-size: 14px;
+  }
+
+  th {
+    background: var(--charcoal);
+    color: white;
+    padding: 12px 16px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+  }
+
+  td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--stone);
+    color: var(--slate);
+    vertical-align: top;
+  }
+
+  tr:nth-child(even) td {
+    background: rgba(196,98,45,0.04);
+  }
+
+  /* Cajas de destaque */
+  .highlight-box {
+    border-left: 4px solid var(--clay);
+    background: rgba(196,98,45,0.06);
+    padding: 20px 24px;
+    border-radius: 0 8px 8px 0;
+    margin: 24px 0;
+  }
+
+  .highlight-box strong {
+    display: block;
+    color: var(--clay-dark);
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .highlight-box p {
+    margin: 0;
+    color: var(--charcoal);
+    font-size: 15px;
+  }
+
+  .warning-box {
+    border-left: 4px solid var(--warning);
+    background: rgba(184,105,11,0.06);
+    padding: 20px 24px;
+    border-radius: 0 8px 8px 0;
+    margin: 24px 0;
+  }
+
+  .warning-box strong {
+    display: block;
+    color: var(--warning);
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  /* Bloques de código / prompt */
+  .prompt-block {
+    background: #1a1a2e;
+    border-radius: 10px;
+    padding: 24px;
+    margin: 24px 0;
+    font-family: 'Courier New', monospace;
+    position: relative;
+  }
+
+  .prompt-block .prompt-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--clay-light);
+    margin-bottom: 12px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+  }
+
+  .prompt-block .prompt-line {
+    color: #7EC8E3;
+    font-size: 14px;
+    line-height: 1.8;
+  }
+
+  .prompt-block .prompt-comment {
+    color: rgba(255,255,255,0.35);
+    font-size: 13px;
+  }
+
+  .prompt-block .prompt-output {
+    color: rgba(255,255,255,0.7);
+    font-size: 13px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    margin-top: 12px;
+    padding-top: 12px;
+  }
+
+  /* Tarjetas de skill */
+  .skill-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+    margin: 32px 0;
+  }
+
+  .skill-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    border: 1px solid var(--stone);
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .skill-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--clay);
+  }
+
+  .skill-card-icon {
+    font-size: 28px;
+    margin-bottom: 12px;
+  }
+
+  .skill-card-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--clay);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+
+  .skill-card-desc {
+    font-size: 13.5px;
+    color: var(--slate);
+    line-height: 1.6;
+    margin-bottom: 12px;
+  }
+
+  .skill-card-tag {
+    display: inline-block;
+    background: var(--stone);
+    color: var(--slate);
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    margin: 2px 2px 0 0;
+  }
+
+  /* Diagrama de flujo */
+  .flow-diagram {
+    background: white;
+    border-radius: 12px;
+    padding: 40px;
+    margin: 32px 0;
+    border: 1px solid var(--stone);
+  }
+
+  .flow-phases {
+    display: flex;
+    gap: 0;
+    position: relative;
+  }
+
+  .flow-phases::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(to right, var(--clay), var(--clay-light));
+    z-index: 0;
+    transform: translateY(-50%);
+  }
+
+  .flow-phase {
+    flex: 1;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .flow-dot {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--clay);
+    color: white;
+    font-weight: 700;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 12px;
+    border: 4px solid white;
+    box-shadow: 0 0 0 2px var(--clay);
+  }
+
+  .flow-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: 4px;
+  }
+
+  .flow-skills {
+    font-size: 10.5px;
+    color: var(--slate);
+    line-height: 1.6;
+  }
+
+  /* Badges de estado */
+  .badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+
+  .badge-success { background: rgba(45,122,79,0.12); color: var(--success); }
+  .badge-warning { background: rgba(184,105,11,0.12); color: var(--warning); }
+  .badge-danger  { background: rgba(158,42,42,0.12); color: var(--danger); }
+  .badge-clay    { background: rgba(196,98,45,0.12); color: var(--clay-dark); }
+
+  /* Separadores decorativos */
+  .section-divider {
+    text-align: center;
+    padding: 24px 0;
+    color: var(--clay);
+    font-size: 24px;
+    letter-spacing: 8px;
+    opacity: 0.4;
+  }
+
+  /* Lista de principios éticos */
+  .ethics-list {
+    list-style: none;
+    margin: 24px 0;
+  }
+
+  .ethics-list li {
+    display: flex;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--stone);
+    align-items: flex-start;
+  }
+
+  .ethics-num {
+    background: var(--clay);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .ethics-text strong {
+    display: block;
+    font-size: 14px;
+    color: var(--charcoal);
+    margin-bottom: 4px;
+  }
+
+  .ethics-text span {
+    font-size: 13.5px;
+    color: var(--slate);
+  }
+
+  /* ── PORTADA INTERIOR / SECCIÓN ESPECIAL ──────────── */
+  .part-divider {
+    background: linear-gradient(135deg, var(--charcoal), #1a1a2e);
+    color: white;
+    padding: 80px 60px;
+    text-align: center;
+    margin: 0 -40px;
+  }
+
+  .part-divider .part-num {
+    font-size: 13px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--clay-light);
+    margin-bottom: 16px;
+  }
+
+  .part-divider h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 40px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 20px;
+  }
+
+  .part-divider p {
+    color: rgba(255,255,255,0.55);
+    font-size: 16px;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  /* ── PIE DE PÁGINA ─────────────────────────────────── */
+  footer {
+    background: var(--charcoal);
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    padding: 40px;
+    font-size: 13px;
+    margin-top: 80px;
+  }
+
+  footer strong {
+    color: var(--clay-light);
+  }
+
+  /* ── PRINT ─────────────────────────────────────────── */
+  @media print {
+    .cover { min-height: 100vh; page-break-after: always; }
+    .toc { page-break-after: always; }
+    .chapter { page-break-inside: avoid; }
+    .part-divider { page-break-before: always; page-break-after: always; }
+    body { font-size: 13px; }
+    .prompt-block { background: #f5f5f5; }
+    .prompt-block .prompt-line { color: #333; }
+    .prompt-block .prompt-comment { color: #888; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!--  PORTADA                                            -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="cover">
+  <div class="cover-badge">Manual del Cliente — Versión 1.0</div>
+  <div class="cover-logo">🎓</div>
+  <h1>Método Tesis<br><span>60-40 IA™</span></h1>
+  <p class="cover-subtitle">El sistema de asistencia ética que guía tu tesis desde la idea hasta la sustentación</p>
+  <div class="cover-divider"></div>
+  <div class="cover-meta">
+    <div class="cover-meta-item">
+      <div class="cover-meta-label">Versión</div>
+      <div class="cover-meta-value">1.0.0</div>
+    </div>
+    <div class="cover-meta-item">
+      <div class="cover-meta-label">Año</div>
+      <div class="cover-meta-value">2026</div>
+    </div>
+    <div class="cover-meta-item">
+      <div class="cover-meta-label">Agentes</div>
+      <div class="cover-meta-value">15 especializados</div>
+    </div>
+    <div class="cover-meta-item">
+      <div class="cover-meta-label">Comandos</div>
+      <div class="cover-meta-value">12 skills</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!--  ÍNDICE                                             -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="toc">
+  <div class="section-label">Contenido</div>
+  <h2>Índice</h2>
+  <ul class="toc-list">
+    <li><span class="toc-num">01</span><span class="toc-title">Presentación — ¿Qué es el Método 60-40?</span><span class="toc-page">Pág. 1</span></li>
+    <li><span class="toc-num">02</span><span class="toc-title">El Principio Fundamental: 60% Tú, 40% IA</span><span class="toc-page">Pág. 2</span></li>
+    <li><span class="toc-num">03</span><span class="toc-title">Los 10 Principios Éticos del Sistema</span><span class="toc-page">Pág. 3</span></li>
+    <li><span class="toc-num">04</span><span class="toc-title">Arquitectura del Sistema — Cómo Funciona</span><span class="toc-page">Pág. 4</span></li>
+    <li><span class="toc-num">05</span><span class="toc-title">Las 3 Fases del Proceso</span><span class="toc-page">Pág. 5</span></li>
+    <li><span class="toc-num">06</span><span class="toc-title">Los 12 Comandos — Guía Completa con Ejemplos</span><span class="toc-page">Pág. 6</span></li>
+    <li><span class="toc-num">07</span><span class="toc-title">Los 26 Invariantes de Contenido</span><span class="toc-page">Pág. 7</span></li>
+    <li><span class="toc-num">08</span><span class="toc-title">Sistema de Calidad y Umbrales</span><span class="toc-page">Pág. 8</span></li>
+    <li><span class="toc-num">09</span><span class="toc-title">Flujo de un Proyecto Completo</span><span class="toc-page">Pág. 9</span></li>
+    <li><span class="toc-num">10</span><span class="toc-title">Ejemplos de Prompts por Escenario</span><span class="toc-page">Pág. 10</span></li>
+    <li><span class="toc-num">11</span><span class="toc-title">Cierre — Lo que el Sistema No Puede Hacer por Ti</span><span class="toc-page">Pág. 11</span></li>
+  </ul>
+</div>
+
+<div class="content">
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!--  01. PRESENTACIÓN                                   -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="chapter" id="presentacion">
+  <div class="chapter-header">
+    <div class="section-label">01 — Presentación</div>
+    <h2>¿Qué es el Método Tesis 60-40 IA™?</h2>
+  </div>
+
+  <p>El <strong>Método Tesis 60-40 IA™</strong> es un sistema de asistencia académica especializado que usa inteligencia artificial para acompañar al tesista desde la primera idea hasta el día de la sustentación — sin reemplazar ni comprometer la autoría académica.</p>
+
+  <p>No es un generador de tesis. Es un sistema diseñado para <strong>potenciar tu trabajo</strong>, estructurar tu pensamiento, verificar la coherencia lógica de tu investigación y corregir el formato, mientras tú tomas todas las decisiones que importan.</p>
+
+  <div class="principle-block">
+    <div class="big-num">60</div>
+    <div class="principle-title">El Método en una Frase</div>
+    <div class="principle-text">"La IA hace el 40% del trabajo estructural. Tú haces el 60% que define si la investigación es válida, honesta y tuya."</div>
+  </div>
+
+  <p>El sistema combina <strong>15 agentes especializados</strong>, <strong>12 comandos de asistencia</strong>, <strong>26 reglas de contenido inmutables</strong> y <strong>10 principios éticos</strong> en un flujo coordinado que cubre todas las etapas del proceso de investigación académica.</p>
+
+  <h3>¿Para quién es este sistema?</h3>
+
+  <table>
+    <tr><th>Perfil</th><th>Cómo beneficia el sistema</th></tr>
+    <tr><td>Tesista de pregrado (primer tesis)</td><td>Guía paso a paso desde la idea, con explicaciones de cada elemento y plantillas de apoyo</td></tr>
+    <tr><td>Tesista de maestría</td><td>Rigor metodológico, coherencia entre capítulos, corrección APA 7 y preparación de sustentación</td></tr>
+    <tr><td>Tesista de doctorado</td><td>Auditoría de coherencia de 8 cadenas, verificación de consistencia interna, refinamiento académico</td></tr>
+    <tr><td>Asesor de tesis</td><td>Revisión previa del trabajo del tesista con informes detallados antes de cada sesión de asesoría</td></tr>
+  </table>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!--  02. PRINCIPIO 60-40                               -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="chapter" id="principio">
+  <div class="chapter-header">
+    <div class="section-label">02 — El Principio Fundamental</div>
+    <h2>60% Tú, 40% IA</h2>
+  </div>
+
+  <p>La división 60-40 no es solo un número — es la arquitectura ética del sistema. Define con precisión qué hace cada parte y por qué.</p>
+
+  <table>
+    <tr><th>Tú (60%)</th><th>El Sistema IA (40%)</th></tr>
+    <tr><td>Pensamiento crítico sobre el tema</td><td>Estructura y formato de cada sección</td></tr>
+    <tr><td>Datos recolectados en campo</td><td>Coherencia lógica entre capítulos</td></tr>
+    <tr><td>Decisiones metodológicas</td><td>Corrección de formato APA 7</td></tr>
+    <tr><td>Selección y verificación de fuentes</td><td>Síntesis y organización de ideas</td></tr>
+    <tr><td>Voz e interpretación propias</td><td>Borradores para revisar y adaptar</td></tr>
+    <tr><td>Juicio académico final</td><td>Verificación de invariantes de contenido</td></tr>
+    <tr><td>Responsabilidad ante el jurado</td><td>Preparación y banco de preguntas</td></tr>
+  </table>
+
+  <div class="highlight-box">
+    <strong>Regla de Oro</strong>
+    <p>Cuando el sistema genera un borrador, es un punto de partida — no el producto final. Debes revisarlo, adaptarlo con tu voz y validarlo con tu asesor. Esta no es una sugerencia: es parte del proceso.</p>
+  </div>
+
+  <h3>¿Por qué este equilibrio?</h3>
+
+  <p>La investigación académica requiere que el conocimiento nuevo provenga de la observación, el análisis y el juicio del investigador. La IA no puede observar tu realidad, acceder a tus datos, ni defender tus conclusiones ante un jurado.</p>
+
+  <p>Lo que sí puede hacer es liberar tiempo y energía cognitiva de las tareas estructurales y formales — para que puedas invertirlos en lo que realmente importa: tu investigación.</p>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!--  03. PRINCIPIOS ÉTICOS                              -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="chapter" id="etica">
+  <div class="chapter-header">
+    <div class="section-label">03 — Principios Éticos</div>
+    <h2>Los 10 Principios Éticos del Sistema</h2>
+  </div>
+
+  <p>Los principios éticos son <strong>inmutables</strong>. No pueden ser desactivados, ignorados ni negociados bajo ninguna circunstancia. Son el núcleo de la integridad académica del sistema.</p>
+
+  <ul class="ethics-list">
+    <li>
+      <div class="ethics-num">PE1</div>
+      <div class="ethics-text">
+        <strong>No inventa citas ni fuentes</strong>
+        <span>Si una referencia no está verificada, se marca como <code>[PENDIENTE DE VERIFICACIÓN]</code>. Nunca se completan datos bibliográficos sin confirmarlos.</span>
+      </div>
+    </li>
+    <li>
+      <div class="ethics-num">PE2</div>
+      <div class="ethics-text">
+        <strong>No genera estadísticas</strong>
+        <span>Los datos en la sección de resultados provienen únicamente del tesista. El sistema nunca genera números, porcentajes ni estadísticas propias.</span>
+      </div>
+    </li>
+    <li>
+      <div class="ethics-num">PE3</div>
+      <div class="ethics-text">
+        <strong>No reemplaza el juicio metodológico</strong>
+        <span>El sistema propone opciones metodológicas y explica sus implicaciones, pero la decisión final siempre es del tesista.</span>
+      </div>
+    </li>
+    <li>
+      <div class="ethics-num">PE4</div>
+      <div class="ethics-text">
+        <strong>No promete aprobación académica</strong>
+        <span>El sistema no puede garantizar que una tesis sea aprobada — eso depende del tesista, el asesor y el jurado.</span>
+      </div>
+    </li>
+    <li>
+      <div class="ethics-num">PE5</div>
+      <div class="ethics-text">
+        <strong>No fabrica autores ni teorías</strong>
+        <span>Si un concepto o teoría no tiene respaldo bibliográfico verificado, no se incluye en el marco teórico.</span>
+      </div>
+    </li>
+    <li>
+      <div class="ethics-num">PE6</div>
+      <div class="ethics-text">
+        <strong>Nunca oculta limitaciones</strong>
+        <span>Las limitaciones del estudio son un elemento de rigor académico. El sistema las identifica y solicita que sean declaradas honestamente.</span>
+      </div>
+    </li>
+    <li>
+      <div class="ethics-num">PE7</div>
+      <div class="ethics-text">
+        <strong>Siempre marca afirmaciones no verificadas</strong>
+        <span>Cualquier afirmación que no tenga respaldo de fuente verificable se señala explícitamente para que el tesista la revise.</span>
+      </div>
+    </li>
+    <li>
+      <div class="ethics-num">PE8</div>
+      <div class="ethics-text">
+        <strong>Los borradores son puntos de partida</strong>
+        <span>Cada texto generado incluye un recordatorio de que debe ser revisado, adaptado con la voz del tesista y validado con el asesor.</span>
+      </div>
+    </li>
+    <li>
+      <div class="ethics-num">PE9</div>
+      <div class="ethics-text">
+        <strong>Transparente sobre sus propias limitaciones</strong>
+        <span>El sistema informa cuando no puede realizar una tarea o cuando hay incertidumbre en el resultado.</span>
+      </div>
+    </li>
+    <li>
+      <div class="ethics-num">PE10</div>
+      <div class="ethics-text">
+        <strong>El tesista puede auditar todo</strong>
+        <span>Cada decisión y operación queda registrada en <code>SESSION_REPORT.md</code> y <code>research_journal.md</code>. Total transparencia.</span>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!--  04. ARQUITECTURA                                   -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="chapter" id="arquitectura">
+  <div class="chapter-header">
+    <div class="section-label">04 — Cómo Funciona</div>
+    <h2>Arquitectura del Sistema</h2>
+  </div>
+
+  <p>El sistema opera a través de una arquitectura de <strong>pares worker-critic</strong>: por cada agente que crea contenido, hay un agente crítico independiente que lo revisa. Los críticos nunca crean; los creadores nunca se auto-califican.</p>
+
+  <h3>Los 15 Agentes Especializados</h3>
+
+  <table>
+    <tr><th>Agente</th><th>Rol</th><th>Especialización</th></tr>
+    <tr><td><strong>Orquestador</strong></td><td>Coordinador</td><td>Dirige todo el flujo, valida dependencias, escala al tesista cuando hay bloqueos</td></tr>
+    <tr><td>Escritor</td><td>Creador</td><td>Redacta todas las secciones de la tesis</td></tr>
+    <tr><td>Escritor-Critic</td><td>Revisor</td><td>Evalúa coherencia, rigor e integridad del texto</td></tr>
+    <tr><td>Planificador</td><td>Creador</td><td>Construye título, problema, objetivos, variables</td></tr>
+    <tr><td>Planificador-Critic</td><td>Revisor</td><td>Verifica la solidez del Capítulo I</td></tr>
+    <tr><td>Metodólogo</td><td>Creador</td><td>Diseña la metodología con árbol de decisiones</td></tr>
+    <tr><td>Metodólogo-Critic</td><td>Revisor</td><td>Verifica coherencia diseño-objetivos</td></tr>
+    <tr><td>Bibliografista</td><td>Creador</td><td>Gestiona fuentes, antecedentes y referencias</td></tr>
+    <tr><td>Bibliografista-Critic</td><td>Revisor</td><td>Verifica calidad e integridad bibliográfica</td></tr>
+    <tr><td>Analista-Critic</td><td>Revisor</td><td>Verifica que resultados sean de datos reales (INV-25)</td></tr>
+    <tr><td>Auditor de Coherencia</td><td>Revisor</td><td>Examina las 8 cadenas de coherencia del estudio</td></tr>
+    <tr><td>Corrector APA</td><td>Corrector</td><td>Aplica formato APA 7 a citas y referencias</td></tr>
+    <tr><td>Corrector APA-Critic</td><td>Revisor</td><td>Verifica que el corrector no inventó datos</td></tr>
+    <tr><td>Expositor</td><td>Preparador</td><td>Prepara la defensa oral con fórmula R-E-C</td></tr>
+    <tr><td>Expositor-Critic</td><td>Revisor</td><td>Retroalimenta la práctica de sustentación</td></tr>
+  </table>
+
+  <div class="highlight-box">
+    <strong>La Arquitectura Worker-Critic</strong>
+    <p>Ningún agente evalúa su propio trabajo. El Auditor de Coherencia tiene un poder de veto: si detecta una contradicción fundamental entre hipótesis y resultados, escala inmediatamente al tesista sin intentar resolverlo.</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!--  DIVISOR DE PARTE                                   -->
+<!-- ═══════════════════════════════════════════════════ -->
+</div>
+<div class="part-divider">
+  <div class="part-num">Parte II — Desarrollo</div>
+  <h2>Cómo Usar el Sistema</h2>
+  <p>Comandos, flujos de trabajo y ejemplos de uso reales</p>
+</div>
+<div class="content">
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!--  05. LAS 3 FASES                                    -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="chapter" id="fases">
+  <div class="chapter-header">
+    <div class="section-label">05 — El Proceso</div>
+    <h2>Las 3 Fases + Presentación</h2>
+  </div>
+
+  <div class="flow-diagram">
+    <div class="flow-phases">
+      <div class="flow-phase">
+        <div class="flow-dot">D</div>
+        <div class="flow-label">Diagnóstico</div>
+        <div class="flow-skills">/diagnostico</div>
+      </div>
+      <div class="flow-phase">
+        <div class="flow-dot">1</div>
+        <div class="flow-label">Planificación</div>
+        <div class="flow-skills">/planificar<br>/literatura</div>
+      </div>
+      <div class="flow-phase">
+        <div class="flow-dot">2</div>
+        <div class="flow-label">Desarrollo</div>
+        <div class="flow-skills">/escribir<br>/metodologia<br>/analizar</div>
+      </div>
+      <div class="flow-phase">
+        <div class="flow-dot">3</div>
+        <div class="flow-label">Refinamiento</div>
+        <div class="flow-skills">/revisar<br>/corregir</div>
+      </div>
+      <div class="flow-phase">
+        <div class="flow-dot">S</div>
+        <div class="flow-label">Sustentación</div>
+        <div class="flow-skills">/sustentar<br>/dashboard</div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Fase 1: Planificación</h3>
+  <p>Se construyen los fundamentos del estudio. Cada elemento requiere <strong>aprobación explícita del tesista</strong> antes de continuar. El silencio no equivale a aprobación.</p>
+  <p>Entregables clave: título académico, problema general y específicos, objetivos, variables/categorías, diseño metodológico, matriz de consistencia.</p>
+
+  <h3>Fase 2: Desarrollo</h3>
+  <p>Se redactan todos los capítulos de la tesis. La sección de resultados <strong>solo puede avanzar cuando el tesista aporta sus datos reales</strong>. El sistema proporciona borradores que el tesista revisa y adapta.</p>
+  <p>Entregables clave: literatura (antecedentes + referencias), marco teórico, metodología, resultados, discusión, conclusiones, abstract.</p>
+
+  <h3>Fase 3: Refinamiento</h3>
+  <p>Revisión sistemática con todos los agentes críticos. Solo inicia cuando el 80% o más de las secciones tienen puntaje ≥ 80. El sistema produce el Informe Final con veredicto.</p>
+
+  <h3>Presentación</h3>
+  <p>Preparación de la sustentación oral: estructura de la presentación, guía de diapositivas, banco de preguntas por categoría y simulacro con la fórmula R-E-C.</p>
+
+  <div class="warning-box">
+    <strong>6 Pausas Obligatorias</strong>
+    <p>El flujo completo incluye 6 momentos donde el sistema se detiene y espera la decisión del tesista: al finalizar el diagnóstico, al aprobar título, al aprobar objetivos, al aprobar diseño metodológico, al aprobar la consistencia y al iniciar resultados.</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!--  06. LOS 12 COMANDOS                               -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="chapter" id="comandos">
+  <div class="chapter-header">
+    <div class="section-label">06 — Referencia de Comandos</div>
+    <h2>Los 12 Comandos con Ejemplos</h2>
+  </div>
+
+  <div class="skill-grid">
+    <div class="skill-card">
+      <div class="skill-card-icon">🔍</div>
+      <div class="skill-card-name">/diagnostico</div>
+      <div class="skill-card-desc">Evalúa el estado actual y genera la ruta personalizada del tesista</div>
+      <span class="skill-card-tag">Inicio</span>
+      <span class="skill-card-tag">Obligatorio</span>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-icon">📐</div>
+      <div class="skill-card-name">/planificar</div>
+      <div class="skill-card-desc">Construye Capítulo I: título, problema, objetivos, variables, metodología, consistencia</div>
+      <span class="skill-card-tag">Fase 1</span>
+      <span class="skill-card-tag">6 modos</span>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-icon">📚</div>
+      <div class="skill-card-name">/literatura</div>
+      <div class="skill-card-desc">Gestiona antecedentes, referencias y búsqueda de fuentes académicas</div>
+      <span class="skill-card-tag">Fase 1</span>
+      <span class="skill-card-tag">BibTeX</span>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-icon">✍️</div>
+      <div class="skill-card-name">/escribir</div>
+      <div class="skill-card-desc">Redacta borradores de todas las secciones de la tesis</div>
+      <span class="skill-card-tag">Fase 2</span>
+      <span class="skill-card-tag">8 secciones</span>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-icon">🔬</div>
+      <div class="skill-card-name">/metodologia</div>
+      <div class="skill-card-desc">Diseña la metodología con árbol de decisiones y redacta el capítulo</div>
+      <span class="skill-card-tag">Fase 2</span>
+      <span class="skill-card-tag">4 modos</span>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-icon">📊</div>
+      <div class="skill-card-name">/analizar</div>
+      <div class="skill-card-desc">Guía el análisis de datos (no genera estadísticas — solo orientación)</div>
+      <span class="skill-card-tag">Fase 2</span>
+      <span class="skill-card-tag">Cuant/Cual/Mixto</span>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-icon">🔎</div>
+      <div class="skill-card-name">/revisar</div>
+      <div class="skill-card-desc">Revisión sistemática: coherencia, APA, redacción académica o todo</div>
+      <span class="skill-card-tag">Fase 3</span>
+      <span class="skill-card-tag">Informe Final</span>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-icon">✏️</div>
+      <div class="skill-card-name">/corregir</div>
+      <div class="skill-card-desc">Aplica correcciones de estilo, APA 7 o corrección completa</div>
+      <span class="skill-card-tag">Fase 3</span>
+      <span class="skill-card-tag">Track changes</span>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-icon">🎤</div>
+      <div class="skill-card-name">/sustentar</div>
+      <div class="skill-card-desc">Prepara la defensa oral con diapositivas, banco de preguntas y simulacro</div>
+      <span class="skill-card-tag">Presentación</span>
+      <span class="skill-card-tag">R-E-C</span>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-icon">📈</div>
+      <div class="skill-card-name">/dashboard</div>
+      <div class="skill-card-desc">Panel visual HTML del estado actual de la tesis</div>
+      <span class="skill-card-tag">Utilidad</span>
+      <span class="skill-card-tag">Siempre disponible</span>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-icon">💾</div>
+      <div class="skill-card-name">/checkpoint</div>
+      <div class="skill-card-desc">Guarda el estado completo de la sesión en disco</div>
+      <span class="skill-card-tag">Utilidad</span>
+      <span class="skill-card-tag">Al cerrar</span>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-icon">🚀</div>
+      <div class="skill-card-name">/nueva-tesis</div>
+      <div class="skill-card-desc">Inicia un proyecto completo desde cero con flujo orquestado</div>
+      <span class="skill-card-tag">Inicio</span>
+      <span class="skill-card-tag">Orquestado</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!--  07. INVARIANTES                                    -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="chapter" id="invariantes">
+  <div class="chapter-header">
+    <div class="section-label">07 — Reglas de Contenido</div>
+    <h2>Los 26 Invariantes de Contenido</h2>
+  </div>
+
+  <p>Los invariantes son reglas inmutables de calidad académica verificadas automáticamente en cada ciclo de revisión. Una violación puede bloquear el avance o disparar una alerta crítica.</p>
+
+  <h4>Coherencia Estructural (INV-1 a INV-9)</h4>
+  <table>
+    <tr><th>INV</th><th>Regla</th></tr>
+    <tr><td>INV-1</td><td>El título refleja con precisión el fenómeno, la población y el alcance del estudio</td></tr>
+    <tr><td>INV-2</td><td>El problema deriva lógicamente del contexto descrito en la realidad problemática</td></tr>
+    <tr><td>INV-3</td><td>Relación 1:1 — cada problema específico tiene exactamente un objetivo específico</td></tr>
+    <tr><td>INV-4</td><td>Los objetivos específicos cubren el objetivo general en su totalidad</td></tr>
+    <tr><td>INV-5</td><td>Las variables están operacionalizadas con indicadores medibles y verificables</td></tr>
+    <tr><td>INV-6</td><td>Las categorías cualitativas tienen subcategorías con criterios de codificación claros</td></tr>
+    <tr><td>INV-7</td><td>Las hipótesis son falsables y verificables con el diseño propuesto</td></tr>
+    <tr><td>INV-8</td><td>La justificación cubre al menos 3 criterios: conveniencia, relevancia social, utilidad metodológica</td></tr>
+    <tr><td>INV-9</td><td>La matriz de consistencia es coherente en todas sus columnas horizontales</td></tr>
+  </table>
+
+  <h4>Marco Teórico (INV-10 a INV-13)</h4>
+  <table>
+    <tr><th>INV</th><th>Regla</th></tr>
+    <tr><td>INV-10</td><td>Todos los conceptos clave están definidos teóricamente con respaldo bibliográfico real</td></tr>
+    <tr><td>INV-11</td><td>Los antecedentes son estudios empíricos previos — no libros de texto ni artículos teóricos</td></tr>
+    <tr><td>INV-12</td><td>Cada antecedente tiene los 8 campos requeridos: autor, año, título, objetivo, metodología, hallazgos, relevancia, fuente</td></tr>
+    <tr><td>INV-13</td><td>No se hacen afirmaciones de causalidad sin un diseño experimental que las respalde</td></tr>
+  </table>
+
+  <h4>APA 7 (INV-14 a INV-19)</h4>
+  <table>
+    <tr><th>INV</th><th>Regla</th></tr>
+    <tr><td>INV-14</td><td>Cada cita en texto tiene su referencia en la lista final</td></tr>
+    <tr><td>INV-15</td><td>Cada referencia en la lista tiene al menos una cita en el texto</td></tr>
+    <tr><td>INV-16</td><td>Las citas directas de más de 40 palabras van en bloque con sangría</td></tr>
+    <tr><td>INV-17</td><td>Se incluye DOI cuando está disponible</td></tr>
+    <tr><td>INV-18</td><td>La lista de referencias está en orden alfabético por apellido del primer autor</td></tr>
+    <tr><td>INV-19</td><td>Los números de figuras y tablas en el texto coinciden con los del apéndice</td></tr>
+  </table>
+
+  <h4>Escritura Académica (INV-20 a INV-24)</h4>
+  <table>
+    <tr><th>INV</th><th>Regla</th></tr>
+    <tr><td>INV-20</td><td>No se usa primera persona singular ("yo") — se usa voz pasiva o tercera persona</td></tr>
+    <tr><td>INV-21</td><td>No se usan expresiones evaluativas sin respaldo de autor ("es importante", "es fundamental")</td></tr>
+    <tr><td>INV-22</td><td>No se hacen afirmaciones propias en el marco teórico sin citar autor</td></tr>
+    <tr><td>INV-23</td><td>Las tablas tienen número, título y nota al pie según APA 7</td></tr>
+    <tr><td>INV-24</td><td>Las figuras tienen número, título y nota al pie según APA 7</td></tr>
+  </table>
+
+  <h4>Integridad (INV-25 y INV-26)</h4>
+  <table>
+    <tr><th>INV</th><th>Regla</th><th>Consecuencia</th></tr>
+    <tr><td><strong>INV-25</strong></td><td>Ningún dato estadístico fue generado por IA — todos provienen de recolección real</td><td class="badge badge-danger">FALLO INMEDIATO</td></tr>
+    <tr><td><strong>INV-26</strong></td><td>Las referencias marcadas como [PENDIENTE DE VERIFICACIÓN] no pueden aparecer en la versión final</td><td class="badge badge-warning">BLOQUEO</td></tr>
+  </table>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!--  08. SISTEMA DE CALIDAD                            -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="chapter" id="calidad">
+  <div class="chapter-header">
+    <div class="section-label">08 — Calidad</div>
+    <h2>Sistema de Calidad y Umbrales</h2>
+  </div>
+
+  <h3>Pesos por componente</h3>
+
+  <table>
+    <tr><th>Componente</th><th>Peso</th><th>Justificación</th></tr>
+    <tr><td>Redacción académica</td><td>20%</td><td>La calidad de la escritura define la comunicabilidad de la investigación</td></tr>
+    <tr><td>Planificación</td><td>15%</td><td>Una planificación sólida previene errores en todos los capítulos</td></tr>
+    <tr><td>Metodología</td><td>15%</td><td>El diseño metodológico determina la validez del estudio</td></tr>
+    <tr><td>Análisis y resultados</td><td>15%</td><td>Los resultados son el aporte central de la investigación</td></tr>
+    <tr><td>Literatura</td><td>10%</td><td>La calidad de las fuentes sustenta la credibilidad teórica</td></tr>
+    <tr><td>Marco teórico</td><td>10%</td><td>Las bases conceptuales deben ser sólidas y bien referenciadas</td></tr>
+    <tr><td>Coherencia global</td><td>10%</td><td>La coherencia entre capítulos es lo que hace un estudio válido</td></tr>
+    <tr><td>Formato APA 7</td><td>5%</td><td>El formato es verificable y corregible — no debe pesar demasiado</td></tr>
+  </table>
+
+  <h3>Umbrales y veredictos</h3>
+
+  <table>
+    <tr><th>Puntaje</th><th>Veredicto</th><th>Acción</th></tr>
+    <tr><td><span class="badge badge-success">90 – 100</span></td><td>LISTA PARA ENTREGAR</td><td>Cumple todos los estándares del método</td></tr>
+    <tr><td><span class="badge badge-clay">80 – 89</span></td><td>APROBADA CON OBSERVACIONES</td><td>Resolver observaciones menores antes de la entrega</td></tr>
+    <tr><td><span class="badge badge-warning">70 – 79</span></td><td>REVISIÓN IMPORTANTE</td><td>Correcciones significativas requeridas — nueva revisión</td></tr>
+    <tr><td><span class="badge badge-danger">&lt; 70</span></td><td>NO LISTA — REESCRITURA</td><td>Sección(es) necesitan reescritura completa</td></tr>
+  </table>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!--  09. FLUJO COMPLETO                                 -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="chapter" id="flujo">
+  <div class="chapter-header">
+    <div class="section-label">09 — Flujo de Trabajo</div>
+    <h2>Flujo de un Proyecto Completo</h2>
+  </div>
+
+  <h3>Paso a paso desde cero</h3>
+
+  <table>
+    <tr><th>#</th><th>Acción</th><th>Comando</th><th>Decisión del tesista</th></tr>
+    <tr><td>1</td><td>Diagnóstico inicial</td><td><code>/diagnostico</code></td><td>Confirmar la ruta sugerida</td></tr>
+    <tr><td>2</td><td>Formular el título</td><td><code>/planificar titulo</code></td><td>Elegir y/o modificar opción</td></tr>
+    <tr><td>3</td><td>Plantear el problema</td><td><code>/planificar problema</code></td><td>Aportar datos reales del contexto</td></tr>
+    <tr><td>4</td><td>Formular objetivos</td><td><code>/planificar objetivos</code></td><td>Aprobar y ajustar verbos</td></tr>
+    <tr><td>5</td><td>Definir variables/categorías</td><td><code>/planificar variables</code></td><td>Confirmar operacionalización</td></tr>
+    <tr><td>6</td><td>Diseñar metodología</td><td><code>/planificar metodologia</code></td><td>Decidir enfoque y diseño</td></tr>
+    <tr><td>7</td><td>Construir consistencia</td><td><code>/planificar consistencia</code></td><td>Aprobar matriz completa</td></tr>
+    <tr><td>8</td><td>Buscar literatura</td><td><code>/literatura</code></td><td>Aportar PDFs, verificar fuentes</td></tr>
+    <tr><td>9</td><td>Escribir marco teórico</td><td><code>/escribir marco</code></td><td>Revisar y adaptar borrador</td></tr>
+    <tr><td>10</td><td>Escribir metodología</td><td><code>/metodologia redactar</code></td><td>Aportar datos de muestra real</td></tr>
+    <tr><td>11</td><td>Escribir resultados</td><td><code>/escribir resultados</code></td><td><strong>Aportar datos de campo obligatoriamente</strong></td></tr>
+    <tr><td>12</td><td>Escribir discusión</td><td><code>/escribir discusion</code></td><td>Revisar conexión con antecedentes</td></tr>
+    <tr><td>13</td><td>Escribir conclusiones</td><td><code>/escribir conclusiones</code></td><td>Verificar respuesta a objetivos</td></tr>
+    <tr><td>14</td><td>Revisión completa</td><td><code>/revisar todo</code></td><td>Resolver correcciones críticas</td></tr>
+    <tr><td>15</td><td>Corrección final</td><td><code>/corregir completo</code></td><td>Aprobar todos los cambios</td></tr>
+    <tr><td>16</td><td>Preparar sustentación</td><td><code>/sustentar estructura</code></td><td>Adaptar presentación</td></tr>
+    <tr><td>17</td><td>Banco de preguntas</td><td><code>/sustentar preguntas</code></td><td>Practicar respuestas R-E-C</td></tr>
+    <tr><td>18</td><td>Simulacro</td><td><code>/sustentar simulacro</code></td><td>Practicar con retroalimentación</td></tr>
+  </table>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!--  10. EJEMPLOS DE PROMPTS                            -->
+<!-- ═══════════════════════════════════════════════════ -->
+</div>
+<div class="part-divider">
+  <div class="part-num">Parte III — Ejemplos Prácticos</div>
+  <h2>Prompts Reales para Cada Situación</h2>
+  <p>Cómo interactuar con el sistema en cada etapa del proceso</p>
+</div>
+<div class="content">
+
+<div class="chapter" id="ejemplos">
+  <div class="chapter-header">
+    <div class="section-label">10 — Prompts de Ejemplo</div>
+    <h2>Guía de Uso con Ejemplos Reales</h2>
+  </div>
+
+  <h3>Escenario 1: Empezar desde cero</h3>
+  <p>El tesista tiene solo la idea general del tema y no sabe por dónde empezar.</p>
+
+  <div class="prompt-block">
+    <div class="prompt-label">Prompt del Tesista</div>
+    <div class="prompt-line">/diagnostico</div>
+    <div class="prompt-output">
+      → El sistema pregunta sobre el estado actual, institución, enfoque metodológico y recursos disponibles<br>
+      → Genera diagnóstico_inicial.md con fortalezas, brechas y ruta personalizada<br>
+      → Inicializa pipeline_state.json con el proyecto
+    </div>
+  </div>
+
+  <div class="prompt-block">
+    <div class="prompt-label">Prompt del Tesista — Si ya sabe el tema</div>
+    <div class="prompt-line">/nueva-tesis "impacto del liderazgo transformacional en la motivación docente en colegios públicos de Lima, 2024"</div>
+    <div class="prompt-output">
+      → El orquestador ejecuta el flujo completo con 6 pausas obligatorias para decisiones del tesista<br>
+      → Genera estructura completa de forma progresiva
+    </div>
+  </div>
+
+  ---
+
+  <h3>Escenario 2: Formular el título académico</h3>
+
+  <div class="prompt-block">
+    <div class="prompt-label">Prompt del Tesista</div>
+    <div class="prompt-line">/planificar titulo</div>
+    <div class="prompt-comment"># El sistema genera 3 opciones con análisis de 4 componentes cada una</div>
+    <div class="prompt-output">
+      Opción A: "Liderazgo transformacional y motivación laboral en docentes de instituciones educativas públicas del distrito de San Borja, Lima, 2024"<br>
+      Análisis: fenómeno ✓ | relación ✓ | población ✓ | alcance ✓ | palabras: 19/20 ✓<br><br>
+      → El tesista elige, modifica y aprueba antes de continuar
+    </div>
+  </div>
+
+  ---
+
+  <h3>Escenario 3: Buscar y organizar literatura</h3>
+
+  <div class="prompt-block">
+    <div class="prompt-label">Prompt del Tesista</div>
+    <div class="prompt-line">/literatura</div>
+    <div class="prompt-comment"># Si el tesista tiene PDFs propios:</div>
+    <div class="prompt-line">Tengo 8 artículos en PDF sobre liderazgo transformacional. También encontré estos 3 estudios en Google Scholar: [títulos y URLs]</div>
+    <div class="prompt-output">
+      → El bibliografista genera fichas de 8 campos por cada fuente<br>
+      → Las fuentes verificadas van a antecedentes.md<br>
+      → Las no verificadas van a pendientes.md con [FUENTE NO VERIFICADA]<br>
+      → Genera referencias.bib en formato BibTeX
+    </div>
+  </div>
+
+  ---
+
+  <h3>Escenario 4: Escribir resultados (con datos reales)</h3>
+
+  <div class="prompt-block">
+    <div class="prompt-label">Prompt del Tesista</div>
+    <div class="prompt-line">/escribir resultados</div>
+    <div class="prompt-comment"># El sistema pide los datos antes de continuar</div>
+    <div class="prompt-line">Aquí están mis resultados del SPSS:<br>
+Variable 1 (Liderazgo transformacional): M=3.87, DE=0.62<br>
+Variable 2 (Motivación): M=3.94, DE=0.58<br>
+Correlación de Spearman: rs=0.742, p=0.000, n=95<br>
+[tabla de frecuencias descriptivas adjunta]</div>
+    <div class="prompt-output">
+      → El escritor redacta la sección de resultados narrando los datos reales<br>
+      → Genera tablas con formato APA 7 (número, título, nota)<br>
+      → El analista-critic verifica que no hay datos generados por IA (INV-25)
+    </div>
+  </div>
+
+  ---
+
+  <h3>Escenario 5: Revisión final completa</h3>
+
+  <div class="prompt-block">
+    <div class="prompt-label">Prompt del Tesista</div>
+    <div class="prompt-line">/revisar todo</div>
+    <div class="prompt-output">
+      → Lanza 3 agentes críticos en paralelo:<br>
+         • auditor-coherencia → verifica las 8 cadenas de coherencia<br>
+         • corrector-apa + critic → verifica todas las citas y referencias<br>
+         • escritor-critic → auditoría global de redacción académica<br><br>
+      → Produce Informe Final con puntaje global: 84/100<br>
+      → Veredicto: ⚠️ APROBADA CON OBSERVACIONES MENORES<br>
+      → Lista de 3 correcciones menores priorizadas
+    </div>
+  </div>
+
+  ---
+
+  <h3>Escenario 6: Preparar la defensa</h3>
+
+  <div class="prompt-block">
+    <div class="prompt-label">Prompt del Tesista</div>
+    <div class="prompt-line">/sustentar simulacro</div>
+    <div class="prompt-output">
+      → El expositor formula preguntas del jurado por categoría<br>
+      → El tesista responde usando la fórmula R-E-C<br><br>
+      Jurado: "¿Por qué eligió Spearman en lugar de Pearson para el análisis de correlación?"<br><br>
+      Respuesta con R-E-C:<br>
+      Reconocer: "Es una pregunta pertinente sobre la decisión estadística..."<br>
+      Explicar: "La prueba de normalidad Kolmogorov-Smirnov (p=.023) indicó que los datos no seguían distribución normal..."<br>
+      Conectar: "Por ello, siguiendo las recomendaciones de [Hernández-Sampieri, 2014], se optó por Spearman como prueba no paramétrica equivalente..."
+    </div>
+  </div>
+
+  ---
+
+  <h3>Escenario 7: Corrección APA 7</h3>
+
+  <div class="prompt-block">
+    <div class="prompt-label">Prompt del Tesista</div>
+    <div class="prompt-line">/corregir apa</div>
+    <div class="prompt-output">
+      Ejemplo de corrección (con track changes):<br><br>
+      ~~(García, M., Lopez R 2021)~~ → **(García y López, 2021)**<br>
+      ~~García, M. y López R. (2021). Título. Revista, vol. 5, pp. 12-34~~ → **García, M., & López, R. (2021). Título del artículo. *Nombre de la Revista*, *5*(2), 12–34. https://doi.org/...**<br><br>
+      Dato faltante detectado:<br>
+      **García et al. (2019): número de volumen = [DATO FALTANTE — verificar con el tesista]**<br>
+      → Nunca se inventa. El tesista debe consultar la fuente original.
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!--  11. CIERRE                                         -->
+<!-- ═══════════════════════════════════════════════════ -->
+</div>
+<div class="part-divider">
+  <div class="part-num">Parte IV — Cierre</div>
+  <h2>Lo que el Sistema No Puede Hacer por Ti</h2>
+  <p>El límite más importante del Método 60-40</p>
+</div>
+<div class="content">
+
+<div class="chapter" id="cierre">
+  <div class="chapter-header">
+    <div class="section-label">11 — Cierre</div>
+    <h2>El Límite del Sistema — y Tu Responsabilidad</h2>
+  </div>
+
+  <p>El Método Tesis 60-40 IA™ es una herramienta poderosa. Pero como toda herramienta, su valor depende de cómo se usa. Hay cosas que el sistema no puede hacer — y que nadie debería intentar que haga.</p>
+
+  <div class="principle-block">
+    <div class="big-num">✗</div>
+    <div class="principle-title">Lo que el Sistema NO puede hacer</div>
+    <div class="principle-text">Ir al campo y recolectar tus datos.<br>Convencer a tu jurado de que tu trabajo es válido.<br>Pensar críticamente sobre tu tema específico.<br>Asumir la responsabilidad intelectual de la investigación.</div>
+  </div>
+
+  <h3>La tesis como acto de autoría</h3>
+
+  <p>Una tesis académica no es solo un documento — es la demostración pública de que el tesista puede desarrollar conocimiento nuevo de forma rigurosa e independiente. Esa capacidad no se delega.</p>
+
+  <p>El sistema te ayuda a organizar, estructurar y verificar tu trabajo. Pero cada decisión que tomes, cada dato que presentes y cada conclusión que defiendas es tuya. La integridad de ese proceso no es negociable.</p>
+
+  <h3>Cómo sacar el máximo del sistema</h3>
+
+  <table>
+    <tr><th>Haz esto</th><th>No hagas esto</th></tr>
+    <tr><td>Aporta tus datos reales al sistema</td><td>Pedirle que "invente" datos para los resultados</td></tr>
+    <tr><td>Verifica cada fuente antes de incluirla</td><td>Aceptar referencias sin revisar el documento original</td></tr>
+    <tr><td>Adapta los borradores con tu voz</td><td>Entregar los borradores sin revisión al asesor</td></tr>
+    <tr><td>Usa el simulacro para practicar</td><td>Memorizar respuestas sin entender el razonamiento</td></tr>
+    <tr><td>Consulta a tu asesor en cada fase clave</td><td>Reemplazar al asesor con el sistema</td></tr>
+  </table>
+
+  <div class="highlight-box">
+    <strong>Mensaje Final</strong>
+    <p>El Método Tesis 60-40 IA™ existe para que dediques tu tiempo y energía a lo que solo tú puedes hacer: pensar, investigar y construir conocimiento genuino. El sistema hace el trabajo estructural para que tú puedas hacer el trabajo intelectual.</p>
+  </div>
+
+  <h3>Soporte y seguimiento</h3>
+
+  <p>El sistema genera tres archivos de seguimiento en cada sesión:</p>
+  <ul style="padding-left: 24px; margin: 16px 0; color: var(--slate);">
+    <li style="margin-bottom: 8px;"><strong>SESSION_REPORT.md</strong> — Registro de todas las operaciones de la sesión</li>
+    <li style="margin-bottom: 8px;"><strong>research_journal.md</strong> — Historial de puntajes y veredictos por sección</li>
+    <li style="margin-bottom: 8px;"><strong>pipeline_state.json</strong> — Estado actual de todas las secciones de la tesis</li>
+  </ul>
+  <p>Estos archivos son tu bitácora académica. Guárdalos, compártelos con tu asesor y úsalos para retomar el trabajo en cualquier momento.</p>
+
+</div>
+
+</div><!-- end .content -->
+
+<footer>
+  <p>
+    <strong>Método Tesis 60-40 IA™</strong> — Manual del Cliente v1.0<br>
+    Sistema de asistencia ética para el desarrollo de tesis académicas<br>
+    Junio 2026 · Para uso exclusivo de los clientes del programa
+  </p>
+</footer>
+
+</body>
+</html>
