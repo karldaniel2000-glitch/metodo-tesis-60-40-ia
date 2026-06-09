@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "name": "literature-review",
+  "owner": "kjgarza",
+  "repo": "marketplace-claude",
+  "path": "plugins/scholarly-comms-researcher/skills/literature-review",
+  "branch": "main",
+  "sha": "a14542f03851d9fbc3cd63ef8961e693edd3262a",
+  "source": "manual"
+}
