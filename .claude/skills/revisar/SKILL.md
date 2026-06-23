@@ -74,6 +74,13 @@ Luego produce un **Reporte Integrado Final** con:
 
 ---
 
+## Reglas de Estilo y Antidetección (Stop Words de IA)
+En todas las revisiones (especialmente la auditoría académica), el asistente DEBE PENALIZAR y marcar para corrección el uso de las siguientes palabras hiperutilizadas por modelos de lenguaje, para garantizar que la redacción de la tesis supere detectores de IA:
+- **Español:** adentrarse, profundizar, sumergirse, crucial, fundamental, vital, tapiz, entramado, ámbito, esfera, terreno, intrincado, complejo, destacar, subrayar, enfatizar, resaltar, testamento (como prueba), en resumen, en conclusión, en definitiva, desentrañar, descifrar, multifacético, multidimensional, panorama, paisaje, aprovechar, apalancar, metódico, riguroso, en última instancia, transformador, dinámico.
+- **Inglés:** delve, crucial, vital, pivotal, tapestry, realm, intricate, nuanced, underscore, emphasize, highlight, testament, in summary, in conclusion, ultimately, unravel, unveil, multifaceted, comprehensive, landscape, leverage, harness, meticulous, rigorous, navigating, transformative, dynamic.
+
+---
+
 ## Formato del Reporte Integrado
 
 ```markdown

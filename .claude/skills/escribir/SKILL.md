@@ -61,6 +61,14 @@ Redacta todas las secciones en secuencia. Pausa entre secciones mayores para rev
 
 ---
 
+## Reglas de Estilo y Antidetección (Stop Words de IA)
+Al redactar, el asistente DEBE EVITAR ESTRICTAMENTE el uso de las siguientes palabras hiperutilizadas por modelos de lenguaje, para garantizar que la redacción conserve un tono natural y supere los detectores de IA:
+- **Español:** adentrarse, profundizar, sumergirse, crucial, fundamental, vital, tapiz, entramado, ámbito, esfera, terreno, intrincado, complejo, destacar, subrayar, enfatizar, resaltar, testamento (como prueba), en resumen, en conclusión, en definitiva, desentrañar, descifrar, multifacético, multidimensional, panorama, paisaje, aprovechar, apalancar, metódico, riguroso, en última instancia, transformador, dinámico.
+- **Inglés:** delve, crucial, vital, pivotal, tapestry, realm, intricate, nuanced, underscore, emphasize, highlight, testament, in summary, in conclusion, ultimately, unravel, unveil, multifaceted, comprehensive, landscape, leverage, harness, meticulous, rigorous, navigating, transformative, dynamic.
+*Instrucción interna:* En su lugar, utiliza sinónimos contextuales más humanos o reestructura la oración.
+
+---
+
 ## Checklist escritor (antes de pasar al critic)
 
 - [ ] Sección corresponde al objetivo declarado
